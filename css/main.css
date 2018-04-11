@@ -16,8 +16,21 @@
 
 header{
     background-color: lightblue;
-    background-image: url(../img/cloud.png);
+    background-image: url(../img/appsusLogo.jpg);
     color: #fff;
     text-align: center;
+    background-repeat: no-repeat;
+    background-position: center;
  }
 
+ .email-list {
+     overflow: hidden;
+ }
+
+ .email-list.horizontal {
+     height: 50vh;
+ }
+
+ .email-list.vertical {
+    width: 50vw;
+}

@@ -1,4 +1,4 @@
-import bookService  from '../services/book.service.js'
+import bookService  from '../services/email.service.js'
 import eventBus, {USR_MSG_DISPLAY} from '../services/event-bus.service.js'
 
 
