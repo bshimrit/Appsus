@@ -34,3 +34,7 @@ header{
  .email-list.vertical {
     width: 50vw;
 }
+
+.unread{
+    font-weight:bold;
+}

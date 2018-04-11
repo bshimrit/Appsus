@@ -8,7 +8,9 @@ export default {
         <h1>EmailList</h1>
         <ul>
             <li v-for="email in emails">
-                <email-preview :email="email"></email-preview>
+                <router-link :to=detailEmailRoute(email) >
+                    <email-preview :email="email"></email-preview>
+                </router-link>
                 <hr>
             </li>
         </ul>
@@ -16,5 +18,13 @@ export default {
     `,
     components:{
         emailPreview
+    },
+    methods: {
+        detailEmailRoute(email){
+            return "/email/details/" + email.id;
+        },
+        returnToEmail(){
+        }
     }
+
 }

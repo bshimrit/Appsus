@@ -12,7 +12,7 @@ const routes = [
     {path: '/about', component: about},
     {path: '/email', component: emailApp,
       children: [
-        {path: '', component: emailDetails},
+        {path: 'details/:id', components: {default: emailDetails},props: {default: true} },
         {path: 'compose', component: emailCompose}
       ]
     },

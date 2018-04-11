@@ -7,13 +7,12 @@ export default {
     template:`
     <section class="email">
         <router-link to="/email/compose">Compose</router-link>
-        <router-link to="/email">Close</router-link>
+        <router-link :to=detailEmailRoute()>Close</router-link>
         <section class="flex">
             <email-list :emails="emails"></email-list>
             <router-view></router-view>
         </section>
-
-    </section>    `,
+    </section>`,
     data() {
         return {
             emails: []
@@ -25,5 +24,10 @@ export default {
     },
     components:{
         emailList
+    },
+    methods: {
+        detailEmailRoute(){
+            return "/email/details/" + this.emails[0];
+        }
     }
 }

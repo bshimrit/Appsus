@@ -9,7 +9,7 @@ import eventBus, { USR_MSG_DISPLAY } from './event-bus.service.js'
 const EMAILS_KEY = 'emailAppKey';
 var emailsDB = [];
 
-function query(filter = null) {
+function query(filter = null,sort) {
     return storageService.load(EMAILS_KEY)
         .then(emails => {
             if (!emails) {
@@ -37,12 +37,15 @@ function createEmail(){
         name: loremIpsum.generate(utilService.getRandomInt(1, 3), utilService.getRandomInt(3, 6)),
         email: "john.smith@john.smith.com",
         subject: loremIpsum.generate(utilService.getRandomInt(1, 5), utilService.getRandomInt(3, 6)),
-        body: loremIpsum.generate(utilService.getRandomInt(5, 50), utilService.getRandomInt(3, 6))
+        body: loremIpsum.generate(utilService.getRandomInt(5, 50), utilService.getRandomInt(3, 6)),
+        isRead: Math.random() > 0.5,
+        sentAt: new Date(1, 1, 2018)
+
     }
     return email;
 }
 
-function getById(emailId) {
+function getEmailById(emailId) {
     return storageService.load(EMAILS_KEY)
         .then(emails => {
             return emails.find(email => email.id === emailId);
@@ -75,7 +78,7 @@ function saveEmail(email) {
 
 export default {
     query,
-    getById,
+    getEmailById,
     deleteEmail,
     saveEmail
 }
