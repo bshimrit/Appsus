@@ -9,8 +9,9 @@ export default {
     },
     watch: {
         id: {
-            immediate: true,
+            // immediate: true,
             handler (newId) {
+                console.log('inside watch in email details')
                 emailService.getEmailById(newId)
                     .then(selectedemail => {
                         this.email = selectedemail;
@@ -21,16 +22,13 @@ export default {
 
     },
     methods: {
-        emitDelete() {
-            this.$emit('deleteEmail', this.email.id);
-        }
     },
     template: `
     <section class="email-details">
         <h1>EmailDetails</h1>
         <!-- <p >{{id}}</p> -->
         <p>{{email.subject}}</p>
-        <button @click="emitDelete()">delete</button>
+ 
     </section>
     `
 }
