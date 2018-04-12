@@ -1,4 +1,3 @@
-import placeService from '../../services/place/place.service.js'
 
 export default {
     template:`
@@ -9,12 +8,12 @@ export default {
     ,
     computed: {
         getMap(){
-            return this.getServiceMap();
+            return this.emitMap();
         }
     },
     methods:{
-        getServiceMap(){
-            return placeService.loadMap();
+        emitMap(){
+            this.$emit('loadMap');
         }
     }
 }

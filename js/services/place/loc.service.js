@@ -5,7 +5,6 @@ function getLoc(lat, lng) {
         prmData.then(function (res) {
             res.json().then(function (data) {
                 let locationAddress = data.results[0].formatted_address;
-                // document.querySelector('.curr-location').innerText = locationAddress;
             })
         });
         let loc = {lat, lng};
@@ -20,9 +19,7 @@ let getLocByAddress = (address) => {
         prmData.then(function (res) {
             res.json().then(function (data) {
                 let addressData = data.results[0]; // DATA
-
                 let addressName = addressData.formatted_address; // Full address.
-                // document.querySelector('.curr-location').innerText = addressName;
 
                 let addressCoords = addressData.geometry.location; // Objects that olds the lat and lng.
                 resolve(addressCoords);
@@ -38,7 +35,7 @@ function getPosition() {
 }
 
 export default {
-    getLoc: getLoc,
-    getLocByAddress: getLocByAddress,
-    getPosition: getPosition
+    getLoc,
+    getLocByAddress,
+    getPosition
 }

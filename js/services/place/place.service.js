@@ -1,7 +1,11 @@
 import mapService from './map.service.js'
 import locService from './loc.service.js'
+import storageService from '../storage.service.js'
+import utilService from '../util.service.js'
+import LoremIpsum from '../loremIpsum.js'
 
-let gLoc = {};
+const PLACES_KEY = 'placesAppKey';
+var gLoc = {}
 
 function loadMap()
 {
@@ -22,13 +26,11 @@ function getLocation(lat, lng){
             lng = pos.coords.longitude;
             aimMapToLoc(lat, lng);
             locService.getLoc(lat, lng);
-            getRenderWeather(lat, lng);
         }).catch(err => {
             console.log('ERROR:', err);
         })
     } else {
         aimMapToLoc(lat, lng);
-        getRenderWeather(lat, lng);
         locService.getLoc(lat, lng);
     }
 }
@@ -37,7 +39,6 @@ function searchLocation(address) {
     locService.getLocByAddress(address)
         .then((loc) => {
             aimMapToLoc(loc.lat, loc.lng);
-            getRenderWeather(loc.lat, loc.lng);
         })
         .catch(err => {
             console.log('ERROR:', err);
@@ -67,22 +68,6 @@ function aimMapToLoc(lat, lng) {
                     });
                 })
     }
-}
-
-function getQueryString(){
-    let queryString = `127.0.0.1:5500/?lat=${gLoc.lat}&lng=${gLoc.lng}`;
-    let copyTextarea = document.querySelector('.copyClipboard');
-    copyTextarea.innerText = queryString;
-    copyTextarea.hidden = false;
-    copyTextarea.select();
-    try {
-        var successful = document.execCommand('copy');
-        var msg = successful ? 'successful' : 'unsuccessful';
-        console.log('Copying text command was ' + msg);
-    } catch (err) {
-        console.log('Oops, unable to copy');
-    }
-    copyTextarea.hidden = true;
 }
 
 function getAllUrlParams(url){
@@ -147,6 +132,78 @@ function getAllUrlParams(url){
     return obj;
 }
 
+
+function query(filter = null) {
+    return storageService.load(KEY)
+        .then(places => {
+            if (!places) {
+                places = generatePlaces();
+                storageService.store(PLACES_KEY, places);
+            }
+            if (filter === null) return places;
+            else return places.filter(place => place.vendor.includes(filter.byVendor))
+        })
+}
+
+function getById(placeId) {
+    return storageService.load(KEY)
+        .then(places => {
+            return places.find(place => place.id === placeId);
+        })
+}
+
+function deletePlace(placeId) {
+    return storageService.load(KEY)
+        .then(places => {
+            var placeIdx = places.findIndex(place => place.id === placeId);
+            places.splice(placeIdx, 1);
+            return storageService.store(KEY, places);
+        })
+}
+
+
+function savePlace(place) {
+    return storageService.load(KEY)
+        .then(places => {
+            if (place.id) {
+                var placeIdx = places.findIndex(currplace => currplace.id === place.id)
+                places.splice(placeIdx, 1, place);
+            } else {
+                place.id = Date.now();
+                places.push(place);
+            }
+            return storageService.store(KEY, places);
+        });
+}
+
+function generatePlaces() {
+    var places = []
+    for (let index = 0; index < 1; index++) {
+        var place = createPlace()
+        places.push(place)
+    }
+    return places;
+}
+
+function createplace(){
+    var loremIpsum = new LoremIpsum();
+    var place = {
+        id: utilService.getRandomString(11),
+        name: 'My House',
+        description: loremIpsum.generate(utilService.getRandomInt(1, 5), utilService.getRandomInt(3, 6)),
+        photos: [],
+        lat: 0,
+        lng: 0,
+        tags:[]
+    }
+    return place;
+}
+
 export default {
-    loadMap
+    query,
+    getById,
+    deletePlace,
+    savePlace,
+    loadMap,
+    searchLocation
 }

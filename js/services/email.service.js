@@ -44,16 +44,15 @@ function countReadEmails(emails){
     return cntRead; 
 }
 
-function createEmail(subject,body){
+function createEmail(email){
     var loremIpsum = new LoremIpsum();
     var email = {
         id: utilService.getRandomString(11),
         name: loremIpsum.generate(utilService.getRandomInt(1, 3), utilService.getRandomInt(3, 6)),
-        email: "john.smith@john.smith.com",
-        subject: (subject ? subject : loremIpsum.generate(utilService.getRandomInt(1, 5), utilService.getRandomInt(3, 6))),
-        body: (body ? body : loremIpsum.generate(utilService.getRandomInt(5, 50), utilService.getRandomInt(3, 6))),
+        subject: (email ? email.subject : loremIpsum.generate(utilService.getRandomInt(1, 5), utilService.getRandomInt(3, 6))),
+        body: (email ? email.body : loremIpsum.generate(utilService.getRandomInt(5, 50), utilService.getRandomInt(3, 6))),
         isRead: Math.random() > 0.5,
-        sentAt: new Date(1, 1, 2018)
+        sentAt: moment().format('L')
 
     }
     return email;
@@ -62,7 +61,7 @@ function createEmail(subject,body){
 function getEmailById(emailId) {
     return storageService.load(EMAILS_KEY)
         .then(emails => {
-            return emails.find(email => email.id === emailId);
+            return (emails ? emails.find(email => email.id === emailId) : '');
         })
 }
 
@@ -92,7 +91,7 @@ function setRead(emailId){
 function sendEmail(email) {
     return storageService.load(EMAILS_KEY)
         .then(emails => {
-            emails.unshift(createEmail(email.subject,email.body))
+            emails.unshift(createEmail(email))
             eventBus.$emit(EMAIL_READ, {read:countReadEmails(emails),all:emails.length});
             return storageService.store(EMAILS_KEY, emails)
     })

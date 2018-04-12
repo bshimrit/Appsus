@@ -16,7 +16,7 @@ export default {
                     emailService.getEmailById(newId)
                         .then(selectedemail => {
                             this.email = selectedemail;
-                        });
+                    });
                 }
             }
         }

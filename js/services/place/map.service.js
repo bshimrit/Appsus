@@ -4,7 +4,6 @@ var map;
 var markers = [];
 
 function initMap(lat = 32.0749831, lng = 34.9120554) {
-
     const gmapApi = new GoogleMapsApi();
     return gmapApi.load().then(() => {
         map = new google.maps.Map(
@@ -15,35 +14,34 @@ function initMap(lat = 32.0749831, lng = 34.9120554) {
                 },
                 zoom: 15
             })
-
-        console.log('Map has been loaded.', map);
+        // google.maps.event.addListener(map, 'click', function(event) {
+        //     addMarker(event.latLng, map);
+        //     });
     });
-
 
 }
 
 function addMarker(loc) {
-
     var marker = new google.maps.Marker({
         position: loc,
         map: map,
-        title: 'You are here',
+        title: 'Current address',
     })
     marker.setIcon('http://icons.iconarchive.com/icons/icons-land/vista-map-markers/64/Map-Marker-Marker-Inside-Azure-icon.png');
     markers.push(marker);
+    marker.addListener('mouseover', function() {
+        console,log(map, this);
+    });
 }
 
-
-
-
-let removeMarkers = () => {
+function removeMarkers() {
     markers.forEach((marker) => {
         marker.setMap(null);
     })
     markers = [];
 }
 
-let setCenter = (pos) => {
+function setCenter(pos) {
     map.setCenter(pos);
 }
 
