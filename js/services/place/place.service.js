@@ -1,35 +1,21 @@
-import mapService from './services/map.service.js'
+import mapService from './map.service.js'
+import locService from './loc.service.js'
 
 let gLoc = {};
 
-window.onload = () => {
-    {
-        let urlParams = getAllUrlParams(window.location.href);
-        if (urlParams.lat && urlParams.lng) {
-            let lat = +urlParams.lat;
-            let lng = +urlParams.lng;
-            getLocation(lat, lng);
-        } else {
-            getLocation();
-        }
+function loadMap()
+{
+    let urlParams = getAllUrlParams(window.location.href);
+    if (urlParams.lat && urlParams.lng) {
+        let lat = +urlParams.lat;
+        let lng = +urlParams.lng;
+        return getLocation(lat, lng);
+    } else {
+        return getLocation();
     }
 }
 
-document.querySelector('.my-location-btn').addEventListener('click', (ev) => {
-    getLocation();
-})
-
-document.querySelector('.copyBtn').addEventListener('click', (ev) => {
-    getQueryString();
-})
-
-document.querySelector('.search-bar').addEventListener('submit', function (event) {
-    event.preventDefault();
-    let targetLoc = document.querySelector('.search-input').value;
-    searchLocation(targetLoc);
-});
-
-let getLocation = (lat, lng) => {
+function getLocation(lat, lng){
     if (!lat && !lng) {
         locService.getPosition().then(pos => {
             lat = pos.coords.latitude;
@@ -47,7 +33,7 @@ let getLocation = (lat, lng) => {
     }
 }
 
-let searchLocation = (address) => {
+function searchLocation(address) {
     locService.getLocByAddress(address)
         .then((loc) => {
             aimMapToLoc(loc.lat, loc.lng);
@@ -58,7 +44,7 @@ let searchLocation = (address) => {
         })
 }
 
-let aimMapToLoc = (lat, lng) => {
+function aimMapToLoc(lat, lng) {
     gLoc.lat = lat;
     gLoc.lng = lng;
     if (mapService.map) {
@@ -83,7 +69,7 @@ let aimMapToLoc = (lat, lng) => {
     }
 }
 
-let getQueryString = () => {
+function getQueryString(){
     let queryString = `127.0.0.1:5500/?lat=${gLoc.lat}&lng=${gLoc.lng}`;
     let copyTextarea = document.querySelector('.copyClipboard');
     copyTextarea.innerText = queryString;
@@ -99,7 +85,7 @@ let getQueryString = () => {
     copyTextarea.hidden = true;
 }
 
-let getAllUrlParams = (url) => {
+function getAllUrlParams(url){
 
     // get query string from url (optional) or window
     var queryString = url ? url.split('?')[1] : window.location.search.slice(1);
@@ -159,4 +145,8 @@ let getAllUrlParams = (url) => {
     }
 
     return obj;
+}
+
+export default {
+    loadMap
 }

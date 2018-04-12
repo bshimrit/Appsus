@@ -13,7 +13,7 @@ export default {
         <div class="flex flex-column">
             <email-filter @filtered="setFilter"></email-filter>
             <section class="flex">
-                <email-list :emails="emails" @deleteEmail="deleteEmail" @selected="updateRead"></email-list>
+                <email-list :emails="emails" :selectedEmail="selectedEmail" @deleteEmail="deleteEmail" @selected="updateRead"></email-list>
                 <router-view @sendEmail="sendEmail"></router-view>
             </section>
         </div>
@@ -27,7 +27,12 @@ export default {
     },
     created() {
         emailService.query()
-            .then(emails => this.emails = emails)
+            .then(emails => {
+                this.emails = emails
+                this.selectedEmail = this.emails[0];
+                this.detailEmailRoute();
+                this.updateRead(this.selectedEmail);
+            })
     },
     components:{
         emailList,
@@ -35,34 +40,39 @@ export default {
         progressBar
     },
     methods: {
-        detailEmailRoute(idx){
-            var emailId = this.emails[idx ? idx : 0].id;
-            if (this.emails.length) return "/email/details/" + emailId;
+        detailEmailRoute(){
+            this.$router.push("/email/details/" + this.selectedEmail.id);
         },
         deleteEmail(emailId){
             var idx = this.emails.findIndex(email =>  email.id === emailId );
             emailService.deleteEmail(this.emails[idx].id)
                 .then(res => {
                     emailService.query()
-                    .then(emails => this.emails = emails)        
-                    this.$router.push("/email/details/" + this.detailEmailRoute(idx < this.emails.length - 1 ? idx + 1 : 0));
+                    .then(emails => {
+                        this.emails = emails;
+                        this.selectedEmail = this.emails[(idx < this.emails.length - 1 ? idx + 1 : 0)];
+                        this.detailEmailRoute();
+                        this.updateRead(this.selectedEmail);
+                    })        
                 })
         },
         setFilter(filter) {
-            this.filter = filter;
-            emailService.query(filter)
+            emailService.query(this.filter)
             .then(emails => this.emails = emails)
         },
         updateRead(email){
             this.selectedEmail = email;
-            emailService.setRead(email.id);
+            emailService.setRead(email.id)
+
         },
         sendEmail(email){
             emailService.sendEmail(email)
             .then(res => {
                 emailService.query()
-                .then(emails => this.emails = emails)
-                this.$router.push(this.detailEmailRoute());    
+                .then(emails => {
+                    this.emails = emails
+                    this.detailEmailRoute();
+                })
             })
         }
     }

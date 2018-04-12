@@ -22,7 +22,6 @@ export class GoogleMapsApi {
    * Load the Google Maps API javascript
    */
   load() {
-    // console.log('load func');
     if (!this.promise) {
       this.promise = new Promise(resolve => {
         this.resolve = resolve;

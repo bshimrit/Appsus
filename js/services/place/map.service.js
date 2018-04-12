@@ -1,6 +1,4 @@
-import {
-    GoogleMapsApi
-} from './gmap.class.js';
+import {GoogleMapsApi} from './gmap.class.js';
 
 var map;
 var markers = [];
@@ -29,11 +27,10 @@ function addMarker(loc) {
     var marker = new google.maps.Marker({
         position: loc,
         map: map,
-        title: 'Hello World!',
+        title: 'You are here',
     })
     marker.setIcon('http://icons.iconarchive.com/icons/icons-land/vista-map-markers/64/Map-Marker-Marker-Inside-Azure-icon.png');
     markers.push(marker);
-    console.log(markers);
 }
 
 

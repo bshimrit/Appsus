@@ -1,12 +1,18 @@
 import placeMap from '../../cmps/place/place-map.js'
+import placeSearch from '../../cmps/place/place-search.js'
+import placeMarked from '../../cmps/place/place-marked.js'
 
 export default {
     template:`
-    <section class="home">
-        <h1>Placer</h1>
+    <section class="placeApp">
         <place-map></place-map>
+        <place-search></place-search>
+        <place-marked></place-marked>
     </section>
-    `
-}
-componenets:{
+    `,
+    components:{
+        placeMap,
+        placeSearch,
+        placeMarked
+    }
 }

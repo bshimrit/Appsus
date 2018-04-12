@@ -42,3 +42,17 @@ header{
 .selected {
     background-color: lightblue;
 }
+
+.map{
+    height: 100vh;
+}
+
+.placeSearch{
+    position: absolute;
+    top: 50px;
+}
+
+.placeMarked {
+    position: absolute;
+    top: 50px;
+}

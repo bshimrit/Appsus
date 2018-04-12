@@ -3,7 +3,7 @@ import about from './pages/about.js'
 import emailApp from './pages/email/email-app.js'
 import emailCompose from './cmps/email/email-compose.js'
 import emailDetails from './cmps/email/email-details.js'
-import place from './pages/place.js'
+import placeApp from './pages/place/place-app.js'
 import keeper from './pages/keeper.js'
 
 
@@ -16,7 +16,7 @@ const routes = [
         {path: 'compose', component: emailCompose}
       ]
     },
-    {path: '/place', component: place},
+    {path: '/place', component: placeApp},
     {path: '/keeper', component: keeper},
   ];
 

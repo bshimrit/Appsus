@@ -9,13 +9,15 @@ export default {
     },
     watch: {
         id: {
-            // immediate: true,
+            immediate: true,
             handler (newId) {
-                console.log('inside watch in email details')
-                emailService.getEmailById(newId)
-                    .then(selectedemail => {
-                        this.email = selectedemail;
-                    });
+                // console.log('inside watch in email details')
+                if (newId != ''){
+                    emailService.getEmailById(newId)
+                        .then(selectedemail => {
+                            this.email = selectedemail;
+                        });
+                }
             }
         }
 
