@@ -7,8 +7,8 @@ export default {
     <section class="email-list vertical">
         <h1>EmailList</h1>
         <ul>
-            <li v-for="email in emails" :class="[checkSelected(email), checkUnread(email)]">
-                <router-link :to="detailEmailRoute(email)" @click.native="emitSelected(email)">
+            <li v-for="email in emails" :class="[checkSelected(email), checkUnread(email)]" @click="emitSelected(email)">
+                <router-link :to="detailEmailRoute(email)">
                     <email-preview :email="email"></email-preview>
                 </router-link>
                 <button @click.stop="emitDelete(email)">delete</button>
@@ -35,7 +35,7 @@ export default {
             this.$emit('deleteEmail', email.id);
         },
         emitSelected(email){
-            this.$emit('selected', email)
+            this.$emit('selected', email)            
         },
         checkSelected(email){
             return {selected: this.selectedEmail.id === email.id };

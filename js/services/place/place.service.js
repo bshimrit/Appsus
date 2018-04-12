@@ -133,37 +133,36 @@ function getAllUrlParams(url){
 }
 
 
-function query(filter = null) {
-    return storageService.load(KEY)
+function query() {
+    return storageService.load(PLACES_KEY)
         .then(places => {
             if (!places) {
                 places = generatePlaces();
                 storageService.store(PLACES_KEY, places);
             }
-            if (filter === null) return places;
-            else return places.filter(place => place.vendor.includes(filter.byVendor))
+            return places;
         })
 }
 
 function getById(placeId) {
-    return storageService.load(KEY)
+    return storageService.load(PLACES_KEY)
         .then(places => {
             return places.find(place => place.id === placeId);
         })
 }
 
 function deletePlace(placeId) {
-    return storageService.load(KEY)
+    return storageService.load(PLACES_KEY)
         .then(places => {
             var placeIdx = places.findIndex(place => place.id === placeId);
             places.splice(placeIdx, 1);
-            return storageService.store(KEY, places);
+            return storageService.store(PLACES_KEY, places);
         })
 }
 
 
 function savePlace(place) {
-    return storageService.load(KEY)
+    return storageService.load(PLACES_KEY)
         .then(places => {
             if (place.id) {
                 var placeIdx = places.findIndex(currplace => currplace.id === place.id)
@@ -172,28 +171,29 @@ function savePlace(place) {
                 place.id = Date.now();
                 places.push(place);
             }
-            return storageService.store(KEY, places);
+            return storageService.store(PLACES_KEY, places);
         });
 }
 
 function generatePlaces() {
     var places = []
-    for (let index = 0; index < 1; index++) {
-        var place = createPlace()
+    for (let index = 0; index < 3; index++) {
+        var place = createPlace(index)
         places.push(place)
     }
     return places;
 }
 
-function createplace(){
+function createPlace(idx){
+    var coords = [{lat:32.2263222,lng:34.9994826},{lat:32.2263222,lng:35.0060487},{lat:32.17202,lng:34.9302587}]
     var loremIpsum = new LoremIpsum();
     var place = {
         id: utilService.getRandomString(11),
         name: 'My House',
         description: loremIpsum.generate(utilService.getRandomInt(1, 5), utilService.getRandomInt(3, 6)),
         photos: [],
-        lat: 0,
-        lng: 0,
+        lat: coords[idx].lat,
+        lng: coords[idx].lng,
         tags:[]
     }
     return place;

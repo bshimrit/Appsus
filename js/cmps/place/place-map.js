@@ -1,19 +1,28 @@
-
+import mapService from '../../services/place/map.service.js'
 export default {
+    props:['places'],
     template:`
-    <section id="map" class="map">
-        {{getMap}}
+    <section >
+        <div id="map" ref="map" class="map"></div>
     </section>
     `
-    ,
-    computed: {
-        getMap(){
-            return this.emitMap();
-        }
+    , 
+    mounted(){
+        mapService.initMap(this.$refs.map)
+        .then(() => {
+            // var places = this.places;
+            this.markers.forEach(marker =>{
+                // debugger;
+                mapService.addMarker({lat:marker.lat,lng:marker.lng});
+            })
+            mapService.setCenter({lat:this.markers[0].lat,lng:this.markers[0].lng});
+            mapService.setZoom(12);
+        })
     },
-    methods:{
-        emitMap(){
-            this.$emit('loadMap');
+    data(){
+        return {
+            markers: this.places
         }
     }
+
 }

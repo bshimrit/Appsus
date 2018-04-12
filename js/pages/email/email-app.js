@@ -1,4 +1,5 @@
 import emailService from '../../services/email.service.js'
+import eventBus, { EMAIL_READ } from '../../services/event-bus.service.js'
 
 import emailList from '../../cmps/email/email-list.js'
 import emailFilter from '../../cmps/email/email-filter.js'
@@ -21,7 +22,7 @@ export default {
     data() {
         return {
             emails: [],
-            filter: 'All',
+            filter: null,
             selectedEmail: null
         }
     },
@@ -37,11 +38,17 @@ export default {
     components:{
         emailList,
         emailFilter,
-        progressBar
+        progressBar,
+        eventBus
     },
     methods: {
         detailEmailRoute(){
-            this.$router.push("/email/details/" + this.selectedEmail.id);
+            if (this.selectedEmail){
+                this.$router.push("/email/details/" + this.selectedEmail.id);
+                this.updateRead(this.selectedEmail);
+            } else {
+                this.$router.push("/email");
+            }
         },
         deleteEmail(emailId){
             var idx = this.emails.findIndex(email =>  email.id === emailId );
@@ -50,19 +57,31 @@ export default {
                     emailService.query()
                     .then(emails => {
                         this.emails = emails;
-                        this.selectedEmail = this.emails[(idx < this.emails.length - 1 ? idx + 1 : 0)];
+                        this.selectedEmail = this.emails[(idx !== 0 ? idx - 1 : 0)];
                         this.detailEmailRoute();
-                        this.updateRead(this.selectedEmail);
                     })        
                 })
         },
         setFilter(filter) {
+            this.filter = filter;
             emailService.query(this.filter)
-            .then(emails => this.emails = emails)
+            .then(emails => {
+                this.emails = emails;
+                this.selectedEmail = this.emails[0];
+                this.detailEmailRoute();
+            })
         },
         updateRead(email){
-            this.selectedEmail = email;
+            if (email)
+                this.selectedEmail = email;
             emailService.setRead(email.id)
+            .then(() => {
+                emailService.query(this.filter)
+                
+            .then(emails => {
+                this.emails = emails
+                eventBus.$emit(EMAIL_READ, {read:emailService.countReadEmails(this.emails),all:this.emails.length});})
+            })
 
         },
         sendEmail(email){
@@ -71,6 +90,7 @@ export default {
                 emailService.query()
                 .then(emails => {
                     this.emails = emails
+                    if (!this.selectedEmail) this.selectedEmail = this.emails[0];
                     this.detailEmailRoute();
                 })
             })

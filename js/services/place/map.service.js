@@ -3,34 +3,29 @@ import {GoogleMapsApi} from './gmap.class.js';
 var map;
 var markers = [];
 
-function initMap(lat = 32.0749831, lng = 34.9120554) {
+function initMap(nodeMap , lat = 32.0749831, lng = 34.9120554) {
     const gmapApi = new GoogleMapsApi();
     return gmapApi.load().then(() => {
         map = new google.maps.Map(
-            document.querySelector('#map'), {
+            nodeMap, {
                 center: {
                     lat,
                     lng
                 },
                 zoom: 15
             })
-        // google.maps.event.addListener(map, 'click', function(event) {
-        //     addMarker(event.latLng, map);
-        //     });
     });
 
 }
 
-function addMarker(loc) {
+function addMarker({lat , lng}) {
     var marker = new google.maps.Marker({
-        position: loc,
+        position: {lat , lng},
         map: map,
         title: 'Current address',
     })
-    marker.setIcon('http://icons.iconarchive.com/icons/icons-land/vista-map-markers/64/Map-Marker-Marker-Inside-Azure-icon.png');
-    markers.push(marker);
     marker.addListener('mouseover', function() {
-        console,log(map, this);
+        console.log(map, this);
     });
 }
 
@@ -41,8 +36,12 @@ function removeMarkers() {
     markers = [];
 }
 
-function setCenter(pos) {
-    map.setCenter(pos);
+function setCenter({lat , lng}) {
+    map.setCenter({lat , lng});
+}
+
+function setZoom(zoom){
+    map.setZoom(zoom);
 }
 
 export default {
@@ -50,5 +49,6 @@ export default {
     addMarker,
     removeMarkers,
     setCenter,
-    map
+    // map,
+    setZoom
 }

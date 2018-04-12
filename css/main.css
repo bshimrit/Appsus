@@ -57,3 +57,11 @@ header{
     position: absolute;
     top: 50px;
 }
+
+.emailDetails{
+    width: 40%;
+}
+
+.placeMarked {
+    background-color: grey;
+}

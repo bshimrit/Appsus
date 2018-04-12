@@ -11,7 +11,6 @@ export default {
         id: {
             immediate: true,
             handler (newId) {
-                // console.log('inside watch in email details')
                 if (newId != ''){
                     emailService.getEmailById(newId)
                         .then(selectedemail => {
@@ -26,10 +25,11 @@ export default {
     methods: {
     },
     template: `
-    <section class="email-details">
+    <section class="emailDetails">
         <h1>EmailDetails</h1>
         <!-- <p >{{id}}</p> -->
         <p>{{email.subject}}</p>
+        <p>{{email.body}}</p>
  
     </section>
     `
