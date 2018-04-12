@@ -1,26 +1,31 @@
 import emailService from '../../services/email.service.js'
 
 export default {
-    props: {id:''},
-    data(){
+    props: { id: '' },
+    data() {
         return {
-            email:{}
+            email: {}
         }
     },
     watch: {
-        id: function (newId) {
-            emailService.getEmailById(newId)
-        .then(selectedemail => {
-          this.email = selectedemail;
-        });
+        id: {
+            immediate: true,
+            handler (newId) {
+                emailService.getEmailById(newId)
+                    .then(selectedemail => {
+                        this.email = selectedemail;
+                    });
+            }
+        }
+
+
+    },
+    methods: {
+        emitDelete() {
+            this.$emit('deleteEmail', this.email.id);
         }
     },
-    methods:{
-        emitDelete(){
-            this.$emit('deleteEmail',this.email.id);
-        }
-    },
-    template:`
+    template: `
     <section class="email-details">
         <h1>EmailDetails</h1>
         <!-- <p >{{id}}</p> -->

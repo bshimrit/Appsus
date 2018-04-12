@@ -17,7 +17,14 @@ function query(filter = null,sort) {
                 storageService.store(EMAILS_KEY, emails);
             }
             if (filter === null) return emails;
-            else return emails.filter(email => email.vendor.includes(filter.byVendor))
+            else return emails.filter(email => {
+                var isInText = (filter.text === '' || email.subject.includes(filter.text) ||
+                email.body.includes(filter.text)); 
+                var isInStatus = (filter.emailStatus === 'All' || 
+                (email.isRead && filter.emailStatus === 'Read') ||
+                (!email.isRead && filter.emailStatus === 'Unread'));
+                return isInText && isInStatus;
+            })
         })
 }
 
@@ -58,28 +65,12 @@ function deleteEmail(emailId) {
             var emailIdx = emails.findIndex(email => email.id === emailId);
             emails.splice(emailIdx, 1);
             return storageService.store(EMAILS_KEY, emails);
-        })
-}
-
-
-function saveEmail(email) {
-    return storageService.load(EMAILS_KEY)
-        .then(emails => {
-            if (email.id) {
-                var emailIdx = emails.findIndex(curremail => curremail.id === email.id)
-                emails.splice(emailIdx, 1, email);
-            } else {
-                email.id = Date.now();
-                emails.push(email);
-            }
-            return storageService.store(EMAILS_KEY, emails);
-        });
+    })
 }
 
 export default {
     query,
     getEmailById,
-    deleteEmail,
-    saveEmail
+    deleteEmail
 }
 

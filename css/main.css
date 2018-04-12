@@ -38,3 +38,7 @@ header{
 .unread{
     font-weight:bold;
 }
+
+.selected {
+    background-color: lightblue;
+}
