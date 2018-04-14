@@ -25,10 +25,12 @@ export default {
     methods: {
     },
     template: `
-    <section class="emailDetails">
-        <h1>EmailDetails</h1>
-        <!-- <p >{{id}}</p> -->
-        <p>{{email.subject}}</p>
+    <section class="email-container scroll-y">
+        <div class="font-bold">
+            <p>From: {{email.name}}</p>
+            <p>Subject: {{email.subject}}</p>
+        </div>
+        <hr>
         <p>{{email.body}}</p>
  
     </section>

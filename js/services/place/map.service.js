@@ -12,7 +12,7 @@ function initMap(nodeMap , lat = 32.0749831, lng = 34.9120554) {
                     lat,
                     lng
                 },
-                zoom: 15
+                zoom: 12
             })
     });
 
@@ -24,16 +24,15 @@ function addMarker({lat , lng}) {
         map: map,
         title: 'Current address',
     })
+    markers.push(marker);
     marker.addListener('mouseover', function() {
         console.log(map, this);
     });
 }
 
-function removeMarkers() {
-    markers.forEach((marker) => {
-        marker.setMap(null);
-    })
-    markers = [];
+function removeMarker(idx) {
+    markers[idx].setMap(null)
+    markers.splice(idx,1);
 }
 
 function setCenter({lat , lng}) {
@@ -47,8 +46,7 @@ function setZoom(zoom){
 export default {
     initMap,
     addMarker,
-    removeMarkers,
+    removeMarker,
     setCenter,
-    // map,
     setZoom
 }

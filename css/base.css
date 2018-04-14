@@ -4,8 +4,8 @@
 }
 
 html {
-    font-family: 'Gothic';
-    font-size: 16px;
+    font-family: 'MontRegular', sans-serif;
+    font-size: 14px;
     text-transform:initial;
     color: black;
 }
@@ -13,4 +13,21 @@ html {
 ul {
     list-style: none;
     padding: 0;
+}
+
+::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+    font-family: 'MontRegular', sans-serif;
+}
+
+a {
+    color: black;
+}
+a:visited {
+    color:black;
+}  
+
+
+.hr {
+    margin: 2px;
+    height: 3px;
 }

@@ -4,19 +4,16 @@ import emailPreview from './email-preview.js'
 export default {
     props: ['emails', 'selectedEmail'],
     template:`
-    <section class="email-list vertical">
-        <h1>EmailList</h1>
-        <ul>
-            <li v-for="email in emails" :class="[checkSelected(email), checkUnread(email)]" @click="emitSelected(email)">
-                <router-link :to="detailEmailRoute(email)">
-                    <email-preview :email="email"></email-preview>
-                </router-link>
-                <button @click.stop="emitDelete(email)">delete</button>
-                <hr>
+    <section v-if="emails.length" class="email-list">
+        <ul class="email-container scroll-y">
+            <li v-for="email in emails" :class="checkSelected(email)" class="pointer">
+                    <email-preview :class="checkUnread(email)" @click.native="emitSelected(email)" :email="email" @deleteEmail="emitDelete(email)"></email-preview>
+                <hr class="hr">
             </li>
         </ul>
     </section>
     `,
+    // <router-link :to="detailEmailRoute(email)"></router-link>
     data(){
         return {
         }
@@ -28,8 +25,8 @@ export default {
         emailPreview
     },
     methods: {
-        detailEmailRoute(mail){
-            return "/email/details/" + mail.id;
+        detailEmailRoute(email){
+            return "/email/details/" + email.id;
         },
         emitDelete(email) {
             this.$emit('deleteEmail', email.id);

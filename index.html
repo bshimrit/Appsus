@@ -4,20 +4,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="lib/bulma.min.css">
+    <link rel="stylesheet" href="css/style.css">
     <title>Appsus</title>
 </head>
 
 <body>
     <div id="app">
-        <header class="">
-            <user-msg></user-msg>
-            <h1>Appsus</h1>
-            <router-link to="/">Main menu</router-link>
-            <router-link to="/about">About</router-link>
+        <header>
+            <section class="container flex space-between align-start">
+                <img src="img/appsusLogo.jpg" />
+                <h1 class="app-name">Appsus</h1>
+                <div class="flex header-menu">
+                    <div>
+                        <router-link to="/">Home</router-link>
+                    </div>
+                    <div>
+                        <router-link to="/about">About</router-link>
+                    </div>
+                </div>
+            </section>
         </header>
-        <router-view></router-view>
+        <main>
+            <section class="router-view">
+                <router-view></router-view>
+            </section>
+        </main>
     </div>
 
     <script src="lib/moment.min.js"></script>

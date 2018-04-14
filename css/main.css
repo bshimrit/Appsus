@@ -1,67 +1,152 @@
-@import './base.css';
-@import './helpers.css';
-@import './toggle-btn.css';
-@import './user-msg.css';
 
-.gothic {
-    font-family: 'Gothic';
-}
+
 .container {
     max-width: 1050px;
     /* margin: 0 auto; */
     width: 100%;
     padding-right: 10px;
     padding-left: 10px;
+    position: relative;
 }
 
 header{
-    background-color: lightblue;
-    background-image: url(../img/appsusLogo.jpg);
-    color: #fff;
+    color: black;
     text-align: center;
-    background-repeat: no-repeat;
-    background-position: center;
+    height: 80px;
+    margin-top: 10px;
+    border-bottom: 5px solid;
  }
 
- .email-list {
-     overflow: hidden;
+ header img{
+     width:60px;
+     height: auto;
  }
 
- .email-list.horizontal {
-     height: 50vh;
+ .router-view{
+     margin-top: 30px;
+     margin-right: 40px;
  }
 
- .email-list.vertical {
-    width: 50vw;
+ .header-menu div{
+     margin-left: 20px;
+}
+
+.header-menu a:hover {
+    color: #00d1b2;
+    text-decoration: underline;
+ }
+
+ .selected .delete-btn:hover {
+     color: #fff;
+     cursor: pointer;
+     
+ }
+
+ .delete-btn:hover {
+     color: #00d1b2;
+     cursor: pointer;
+ }
+
+ .app-name {
+    font-family: 'MontBold', sans-serif;
+    font-size: 50px; 
+ }
+
+ .email{
+     margin-right: 0;
+ }
+
+
+.email-container{
+    height: 60vh;
+}
+
+.compose-btns {
+    margin-top: 20px;
 }
 
 .unread{
-    font-weight:bold;
+    font-family: 'MontBold', sans-serif;
 }
 
 .selected {
-    background-color: lightblue;
+    background-color: #00d1b2;
+}
+
+.textarea {
+    margin-top: 20px;
+    height: 45vh
 }
 
 .map{
     height: 100vh;
 }
 
-.placeSearch{
+.email-preview {
+    padding: 10px;
+}
+.place-search{
     position: absolute;
     top: 50px;
     right: 50px;
 }
 
-.placeMarked {
+.place-marked {
     position: absolute;
     top: 50px;
+    background-color: #808080b5;
 }
 
-.emailDetails{
-    width: 40%;
+.compose-btn{
+    position: absolute;
+    bottom: 20px;
+    right: 0px;
+    left: auto;
 }
 
-.placeMarked {
-    background-color: grey;
+.left-side{
+    width: 100%;
+    margin-bottom: 10px;
 }
+
+.right-side {
+    display: none;
+}
+
+.ctrl-bar {
+    height: 90px;
+}
+
+
+/****** radio btn ***********/
+.email-filter input[type=radio] {
+    position: absolute;
+    visibility: hidden;
+    display: none;
+  }
+  
+  .email-filter label {
+    color: #00d1b2; /* 40% */
+    display: inline-block;
+    cursor: pointer;
+    font-weight: bold;
+    padding: 5px 20px;
+  }
+  
+  .email-filter input[type=radio]:checked + label{
+    color: black; /* 60% */
+    /* background-color: #00d1b2; */
+    background: #00d1b2;
+  }
+  
+  .email-filter label + .email-filter input[type=radio] + .email-filter label {
+    border-left: solid 3px #332f35;
+  }
+  .email-filter .radio-group {
+    border: solid 3px #00d1b2;
+    display: inline-block;
+    margin-top: 10px;
+    border-radius: 10px;
+    overflow: hidden;
+  }
+

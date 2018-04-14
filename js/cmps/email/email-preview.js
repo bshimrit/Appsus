@@ -2,9 +2,24 @@ export default {
     props: ['email'],
     template:`
     <section class="email-preview">
-            <p>From: {{email.name}} Sent at: {{email.sentAt}}</p>
-            <p> Subject: {{email.subject}} </p>
-        </ul>
+        <section class="flex space-between">
+            <div><span class="fa"></span> {{email.name}}</div>
+            <div>Sent at: {{email.sentAt}}</div>
+        </section>
+        <section class="flex space-between">
+            <p><span class="font-bold">Subject: </span>{{shortSubject}} </p>
+            <button class="delete-btn fa clear-btn" @click.stop="emitDelete()"></button>
+        </section>
     </section>
-    `
+    `,
+    computed: {
+        shortSubject(){
+            return this.email.subject.substring(0,30);
+        }
+    },
+    methods:{
+        emitDelete() {
+            this.$emit('deleteEmail');
+        },
+    }
 }

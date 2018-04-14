@@ -1,3 +1,4 @@
+
 export default {
     data(){
         return {
@@ -10,28 +11,18 @@ export default {
         }
     },
     template: `
-        <section class="container book-filter">
-            <label>
-                Search
-                <input type="text" v-model="filter.text" @input="emitFilter" />
-            </label>
-            <div> 
-                <label>
-                    Status
-                    <label >
-                        <input type="radio" v-model="filter.emailStatus" value="All" name="emailStatus" @change="emitFilter">
-                        All
-                    </label>
-                    <label >
-                        <input type="radio" v-model="filter.emailStatus" value="Read" name="emailStatus" @change="emitFilter">
-                        Read
-                    </label>
-                    <label >
-                        <input type="radio" v-model="filter.emailStatus" value="Unread" name="emailStatus" @change="emitFilter">
-                        Unread
-                    </label>
-                </label> 
+        <section class="ctrl-bar email-filter">
+            <input class="input is-primary" type="text" v-model="filter.text" @input="emitFilter" placeholder="Search"/>
+            <div class="radio-group"> 
+                <input id="all" type="radio" v-model="filter.emailStatus" value="All" name="emailStatus" @change="emitFilter">
+                <label for="all">All</label>
+                <input id="read" type="radio" v-model="filter.emailStatus" value="Read" name="emailStatus" @change="emitFilter">
+                <label for="read">Read</label>
+                <input id="unread" type="radio" v-model="filter.emailStatus" value="Unread" name="emailStatus" @change="emitFilter">
+                <label for="unread">Unread</label>
             </div>
         </section>
-        `
+        `,
+    components:{
+    }
 }

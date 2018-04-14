@@ -9,7 +9,7 @@ export default {
     <section class="placeApp">
         <place-map  v-if="places.length" :places="places"></place-map>
         <place-search @searchLocation="searchLocation"></place-search>
-        <place-marked :places="places"></place-marked>
+        <place-marked :places="places" @deletePlace="deletePlace"></place-marked>
     </section>
     `,
     data(){
@@ -31,6 +31,15 @@ export default {
     methods:{
         searchLocation(searchValue){
             placeService.searchLocation(this.searchValue)            
-        }
+        },
+        deletePlace(place){
+            placeService.deletePlace(place.id)
+                .then(res => {
+                    emailService.query()
+                    .then(places => {
+                        this.places= places;
+                    })        
+                })
+        },
     }
 }

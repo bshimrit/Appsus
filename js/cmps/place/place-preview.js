@@ -2,8 +2,8 @@ export default {
     props: ['place'],
     template:`
     <section class="place-preview">
-            <p>{{place.name}}</p>
-            <p>{{place.description}} </p>
+            <h1>{{place.name}}</h1>
+            <p>{{place.description}}</p>
         </ul>
     </section>
     `

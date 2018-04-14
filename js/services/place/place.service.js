@@ -156,6 +156,7 @@ function deletePlace(placeId) {
         .then(places => {
             var placeIdx = places.findIndex(place => place.id === placeId);
             places.splice(placeIdx, 1);
+            mapService.removeMarker(placeIdx);
             return storageService.store(PLACES_KEY, places);
         })
 }
@@ -189,7 +190,7 @@ function createPlace(idx){
     var loremIpsum = new LoremIpsum();
     var place = {
         id: utilService.getRandomString(11),
-        name: 'My House',
+        name: 'Place' + (idx + 1),
         description: loremIpsum.generate(utilService.getRandomInt(1, 5), utilService.getRandomInt(3, 6)),
         photos: [],
         lat: coords[idx].lat,
