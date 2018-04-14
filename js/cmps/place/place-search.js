@@ -3,9 +3,9 @@ export default {
     <section class="place-search">
         <form class="flex" @submit.prevent="searchAddress">
                 <label>
-                    <input type="text" v-model="searchValue" placeholder="Search address" />
+                    <input class="input is-primary" type="text" v-model="searchValue" placeholder="Search address" />
                 </label>
-                <button class="clear-btn1" type="submit">Search</button>
+                <button class="button is-primary" type="submit">Search</button>
             </form>
     </section>
     `,

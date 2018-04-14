@@ -15,7 +15,6 @@ function initMap(nodeMap , lat = 32.0749831, lng = 34.9120554) {
                 zoom: 12
             })
     });
-
 }
 
 function addMarker({lat , lng}) {
@@ -25,8 +24,16 @@ function addMarker({lat , lng}) {
         title: 'Current address',
     })
     markers.push(marker);
+    
+    
+    var infowindow = new google.maps.InfoWindow({
+        content: infowindowContent()
+      });
     marker.addListener('mouseover', function() {
-        console.log(map, this);
+        infowindow.open(map, marker);   
+    });
+    marker.addListener('mouseout', function() {
+        infowindow.close(map, marker);   
     });
 }
 
@@ -41,6 +48,17 @@ function setCenter({lat , lng}) {
 
 function setZoom(zoom){
     map.setZoom(zoom);
+}
+
+function infowindowContent(){
+    return '<div id="content">'+
+            '<div id="siteNotice">'+
+            '</div>'+
+            '<h1 id="firstHeading" class="firstHeading">MY PLACE</h1>'+
+            '<div id="bodyContent">'+
+            '<p><b>MY PLACE</b>, THIS IS MY FAVOURITE PLACE</p>'+
+            '</div>'+
+            '</div>';
 }
 
 export default {

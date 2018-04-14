@@ -19,9 +19,6 @@ let getLocByAddress = (address) => {
         prmData.then(function (res) {
             res.json().then(function (data) {
                 let addressData = data.results[0]; // DATA
-                let addressName = addressData.formatted_address; // Full address.
-
-                let addressCoords = addressData.geometry.location; // Objects that olds the lat and lng.
                 resolve(addressData);
             })
         });

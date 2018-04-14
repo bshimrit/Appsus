@@ -1,12 +1,28 @@
 
 
 .container {
-    max-width: 1050px;
+    max-width: 1150px;
     /* margin: 0 auto; */
     width: 100%;
     padding-right: 10px;
     padding-left: 10px;
     position: relative;
+}
+
+.tmpPlace{
+    background-color: #dcbebe;
+}
+
+.marker-details {
+    position: relative;
+    left: 50px;
+    top: 50px;
+    transition: left .5s ease-in, top .5s ease-in;
+    background-color: red;
+}
+
+.place-edit input:focus {
+    outline: none;
 }
 
 header{
@@ -22,16 +38,19 @@ header{
      height: auto;
  }
 
+ .place-edit h1 {
+     color: #00d1b2;
+ }
  .router-view{
      margin-top: 30px;
      margin-right: 40px;
  }
 
- .header-menu div{
+ .menu-btn div{
      margin-left: 20px;
 }
 
-.header-menu a:hover {
+.menu-btn a:hover {
     color: #00d1b2;
     text-decoration: underline;
  }
@@ -94,7 +113,7 @@ header{
 }
 
 
-.place-marked {
+.place-list {
     position: absolute;
     top: 0;
     background-color: #ffffff;

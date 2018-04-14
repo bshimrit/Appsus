@@ -5,3 +5,4 @@
 @import './fonts.css';
 @import './main.css';
 @import './narrow.css' (min-width: 740px); 
+@import './modal.css'

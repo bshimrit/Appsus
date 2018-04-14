@@ -2,11 +2,11 @@ import emailService from '../../services/email/email.service.js'
 
 import emailList from '../../cmps/email/email-list.js'
 import emailFilter from '../../cmps/email/email-filter.js'
-import progressBar from '../../cmps/progress-bar.js'
+import progressBar from '../../cmps/general/progress-bar.js'
 
 export default {
     template:`
-    <section class="container">
+    <section class="container router-view">
         <div class="flex email">
             <div class="left-side">
                 <email-filter @filtered="setFilter"></email-filter>
@@ -24,16 +24,16 @@ export default {
             <router-link @click.native="isCompose = !isCompose, isDetail = isCompose" v-if="!isCompose" class="compose-btn fa clear-btn base-btn" to="/email/compose"></router-link>
         </div>
     </section>`,
-    data() {
-        return {
-            emails: [],
-            filter: null,
-            selectedEmail: null,
-            isCompose: false,
-            isDetail: false,
-            mq: window.matchMedia( "(min-width: 740px)" )
-        }
-    },
+data() {
+    return {
+        emails: [],
+        filter: null,
+        selectedEmail: null,
+        isCompose: false,
+        isDetail: false,
+        mq: window.matchMedia( "(min-width: 740px)" )
+    }
+},
     created() {
         emailService.query()
             .then(emails => {
@@ -50,7 +50,7 @@ export default {
     methods: {
         detailEmailRoute(){
             if (this.selectedEmail){
-            this.$router.push("/email/details/" + this.selectedEmail.id);
+                this.$router.push("/email/details/" + this.selectedEmail.id);
             } else {
                 this.$router.push("/email");
             }
@@ -67,44 +67,44 @@ export default {
                     })        
                 })
         },
-    setFilter(filter) {
-        this.filter = filter;
-        emailService.query(this.filter)
-        .then(emails => {
-            this.emails = emails;
-            this.selectedEmail = this.emails[0];
-            this.updateRead();
-        })
-    },
-    updateRead(email){
-        if (email) this.selectedEmail = email;
-        if (this.selectedEmail){
-            emailService.setRead(this.selectedEmail.id)
-            .then(() => {
-                this.selectedEmail.isRead = true;
-                this.detailEmailRoute();
+        setFilter(filter) {
+            this.filter = filter;
+            emailService.query(this.filter)
+            .then(emails => {
+                this.emails = emails;
+                this.selectedEmail = this.emails[0];
+                this.updateRead();
             })
-        } else {
+        },
+        updateRead(email){
+            if (email) this.selectedEmail = email;
+            if (this.selectedEmail){
+                emailService.setRead(this.selectedEmail.id)
+                .then(() => {
+                    this.selectedEmail.isRead = true;
+                    this.detailEmailRoute();
+                })
+            } else {
+                this.detailEmailRoute();
+            }
+        },
+        sendEmail(email){
+            emailService.sendEmail(email)
+            .then(res => {
+                emailService.query()
+                .then(emails => {
+                    this.isDetail = !this.isDetail;
+                    this.emails = emails
+                    this.isCompose = !this.isCompose;
+                    if (!this.selectedEmail) this.selectedEmail = this.emails[0];
+                    this.detailEmailRoute();
+                })
+            })
+        },
+        cancelEmail(){
+            this.isCompose = !this.isCompose;
+            this.isDetail = !this.isDetail;
             this.detailEmailRoute();
         }
-    },
-    sendEmail(email){
-        emailService.sendEmail(email)
-        .then(res => {
-            emailService.query()
-            .then(emails => {
-                this.isDetail = !this.isDetail;
-                this.emails = emails
-                this.isCompose = !this.isCompose;
-                if (!this.selectedEmail) this.selectedEmail = this.emails[0];
-                this.detailEmailRoute();
-            })
-        })
-    },
-    cancelEmail(){
-        this.isCompose = !this.isCompose;
-        this.isDetail = !this.isDetail;
-        this.detailEmailRoute();
     }
-}
 }

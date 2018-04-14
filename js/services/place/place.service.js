@@ -8,7 +8,7 @@ const PLACES_KEY = 'placesAppKey';
 var gLoc = {}
 
 function searchLocation(address) {
-    locService.getLocByAddress(address)
+    return locService.getLocByAddress(address)
         .then((addressData) => {
             mapService.addMarker(addressData.geometry.location)
             mapService.setCenter(addressData.geometry.location);
@@ -35,7 +35,7 @@ function query() {
         })
 }
 
-function getById(placeId) {
+function getPlaceById(placeId) {
     return storageService.load(PLACES_KEY)
         .then(places => {
             return places.find(place => place.id === placeId);
@@ -60,8 +60,7 @@ function savePlace(place) {
                 var placeIdx = places.findIndex(currplace => currplace.id === place.id)
                 places.splice(placeIdx, 1, place);
             } else {
-                place.id = Date.now();
-                places.push(place);
+                places.unshift(place);
             }
             return storageService.store(PLACES_KEY, places);
         });
@@ -69,7 +68,6 @@ function savePlace(place) {
 
 function generatePlaces() {
     var places = []
-    var coords = [{lat:32.2263222,lng:34.9994826},{lat:32.2263222,lng:35.0060487},{lat:32.17202,lng:34.9302587}]
     for (let index = 0; index < 3; index++) {
         var place = createPlace(index)
         places.push(place)
@@ -77,7 +75,8 @@ function generatePlaces() {
     return places;
 }
 
-function createPlace(place){
+function createPlace(idx){
+    var coords = [{lat:32.2263222,lng:34.9994826},{lat:32.2263222,lng:35.0060487},{lat:32.17202,lng:34.9302587}]
     var loremIpsum = new LoremIpsum();
     var place = {
         id: utilService.getRandomString(11),
@@ -86,19 +85,32 @@ function createPlace(place){
         photos: [],
         lat: coords[idx].lat,
         lng: coords[idx].lng,
-        tags:[]
+        tags:[],
+        isTemp: false
     }
     return place;
 }
 
 function createPlaceByLocation(addressData){
-    console.log(addressData);
-    
+    return storageService.load(PLACES_KEY)
+        .then(places => {
+            var place = {
+                id: utilService.getRandomString(11),
+                name: 'Place' + (places.length + 1),
+                description: addressData.formatted_address,
+                photos: [],
+                lat: addressData.geometry.location.lat,
+                lng: addressData.geometry.location.lng,
+                tags: addressData.types,
+                isTemp: true
+        }
+        return place;
+    })
 }
 
 export default {
     query,
-    getById,
+    getPlaceById,
     deletePlace,
     savePlace,
     searchLocation,

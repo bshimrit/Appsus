@@ -1,4 +1,4 @@
-import eventBus, {EMAIL_READ} from '../services/general/event-bus.service.js'
+import eventBus, {EMAIL_READ} from '../../services/general/event-bus.service.js'
 
 export default {
     template: `

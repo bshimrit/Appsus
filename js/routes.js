@@ -1,9 +1,10 @@
 import home from './pages/general/home.js'
 import about from './pages/general/about.js'
 import emailApp from './pages/email/email-app.js'
-import emailCompose from './cmps/email/email-compose.js'
-import emailDetails from './cmps/email/email-details.js'
+import emailCompose from './pages/email/email-compose.js'
+import emailDetails from './pages/email/email-details.js'
 import placeApp from './pages/place/place-app.js'
+import placeEdit from './pages/place/place-edit.js'
 import keeper from './pages/keeper.js'
 
 
@@ -16,7 +17,11 @@ const routes = [
         {path: 'compose', component: emailCompose}
       ]
     },
-    {path: '/place', component: placeApp},
+    {path: '/place', component: placeApp,
+      children: [
+        {path: 'edit/:id', components: {default: placeEdit},props: {default: true}},
+      ]
+    },
     {path: '/keeper', component: keeper},
   ];
 
