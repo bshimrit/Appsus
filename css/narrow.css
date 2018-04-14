@@ -26,3 +26,23 @@
 .left-side {
     width: 40%;
 }
+
+.home{
+    flex-direction: row;
+}
+
+.home a {
+    width: auto;
+    height: auto;
+}
+
+.place-list {
+    top: 10px;
+    width: 25vw;
+    overflow-y: scroll;
+    
+}
+
+.place-search{
+    top: 10px;
+}

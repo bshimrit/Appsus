@@ -17,7 +17,8 @@ export default {
     `,
     data(){
         return {
-            places: []
+            places: [],
+            mq: window.matchMedia( "(min-width: 740px)" )
         }
     },
     components:{
