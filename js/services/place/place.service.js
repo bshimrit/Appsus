@@ -53,13 +53,15 @@ function deletePlace(placeId) {
 }
 
 
-function savePlace(place) {
+function savePlace(place, isTemp = false) {
     return storageService.load(PLACES_KEY)
         .then(places => {
-            if (place.id) {
+            if (place.id && !isTemp) {
+                place.isTemp = false;
                 var placeIdx = places.findIndex(currplace => currplace.id === place.id)
                 places.splice(placeIdx, 1, place);
             } else {
+                place.isTemp = isTemp;
                 places.unshift(place);
             }
             return storageService.store(PLACES_KEY, places);
@@ -96,7 +98,7 @@ function createPlaceByLocation(addressData){
         .then(places => {
             var place = {
                 id: utilService.getRandomString(11),
-                name: 'Place' + (places.length + 1),
+                name: 'Temporary place',
                 description: addressData.formatted_address,
                 photos: [],
                 lat: addressData.geometry.location.lat,

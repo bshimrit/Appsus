@@ -17,6 +17,10 @@
 .pointer {
     cursor: pointer;
 }
+
+.base-color {
+    color: #00d1b2;
+}
 .clear-btn {
     border: none;
     background: transparent;

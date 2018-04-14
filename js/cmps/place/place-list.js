@@ -3,7 +3,9 @@ export default {
     props:['places'],
     template:`
     <section class="place-list">
-        <h1 class="font-bold">Your places</h1>
+        <div>
+            <h1 class="font-bold base-color title is-4">Your places</h1>
+        </div>
         <ul>
             <li v-for="place in places" class="place-item" :class="{tmpPlace: place.isTemp}" >
                 <place-preview class="pointer" :place="place" @click.native="locationClicked(place)"></place-preview>

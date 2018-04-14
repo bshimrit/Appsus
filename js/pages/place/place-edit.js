@@ -13,7 +13,7 @@ export default {
     <section class="container place-edit">
         <modal @close="closeModal">
             <template slot="header">
-                <h1 class="title is-3"> Edit place details <h1>
+                <h1 class="title is-3"> Edit place details </h1>
             </template>
             <template slot="body">
                 <form class="flex flex-column justify-start" @submit.prevent="savePlace">
@@ -34,11 +34,10 @@ export default {
                         <!-- Tags: <input class="input is-primary" v-model="place.tags"></input> -->
                     </label>
                     <section class="compose-btns">
-                        <button class="button is-primary" type="submit">Save</button>
+                        <button class="button is-primary" @click="closeModal" type="submit">Save</button>
                         <button class="button is-primary" @click.prevent="closeModal">Cancel</button>
                     </section>
                 </form>
-            </template slot="footer">
             </template>
         </modal>
     </section>

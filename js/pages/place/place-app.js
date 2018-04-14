@@ -49,23 +49,24 @@ export default {
             })
         },
         addTempLocation(place){
-            this.places.unshift(place);
+            placeService.savePlace(place, true)
+                .then(res =>{
+                    placeService.query()
+                    .then(places => {
+                        this.places = places
+                    })
+                })
         },
         deletePlace(place){
-            this.removeTmpLocation();
-            if (!place.isTemp){
-                placeService.deletePlace(place.id)
-                    .then(res => {
-                        placeService.query()
-                        .then(places => {
-                            this.places= places;
-                        })        
-                    })
-            }
+            placeService.deletePlace(place.id)
+                .then(res => {
+                    placeService.query()
+                    .then(places => {
+                        this.places= places;
+                    })        
+                })
         },
         savePlace(place){
-            place.isTemp = false;
-            debugger;
             placeService.savePlace(place)
                 .then(res =>{
                     placeService.query()

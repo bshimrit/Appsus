@@ -46,6 +46,10 @@ header{
      margin-right: 40px;
  }
 
+ .menu-btn {
+     font-family: 'MontBold', sans-serif;
+ }
+
  .menu-btn div{
      margin-left: 20px;
 }
@@ -63,15 +67,24 @@ header{
  .app-name {
     font-family: 'MontBold', sans-serif;
     font-size: 50px; 
- }
+}
 
- .email{
-     flex-direction: column;
-     margin-right: 0;
+.email{
+    flex-direction: column;
+    margin-right: 0;
+}
+
+.place-preview button{
+    font-family: 'MontBold', sans-serif;
+}
+.place-preview button:hover{
+    color: #00d1b2;
+    text-decoration: underline;   
  }
 
  .place-app {
      position: relative;
+     margin-top: 20px;
  }
 
  .close-detail-btn {
@@ -104,8 +117,8 @@ header{
 }
 .place-search{
     position: absolute;
-    top: 0;
-    right: 10px;
+    top: 10px;
+    right: 20px;
 }
 
 .place-item {
@@ -115,10 +128,20 @@ header{
 
 .place-list {
     position: absolute;
-    top: 0;
+    top: 10px;
+    left: 20px;
     background-color: #ffffff;
     color: black;
-    border: 3px solid #dadbdb
+    width: 30vw;
+    overflow-y: scroll;
+}
+
+.place-list h1 {
+    padding: 10px;
+}
+
+.place-list li {
+    padding: 10px;
 }
 
 .compose-btn{
