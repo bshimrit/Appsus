@@ -1,4 +1,4 @@
-import emailService from '../../services/email.service.js'
+import emailService from '../../services/email/email.service.js'
 
 export default {
     props: { id: '' },
@@ -23,12 +23,18 @@ export default {
 
     },
     methods: {
+        closeDetails() {
+            this.$emit('closeDetails');
+        }
     },
     template: `
     <section class="email-container scroll-y">
-        <div class="font-bold">
-            <p>From: {{email.name}}</p>
-            <p>Subject: {{email.subject}}</p>
+        <div class="font-bold flex space-between">
+            <div>
+                <p>From: {{email.name}}</p>
+                <p>Subject: {{email.subject}}</p>
+            </div>
+            <button class="close-detail-btn button is-primary" @click.prevent="closeDetails">x</button>
         </div>
         <hr>
         <p>{{email.body}}</p>

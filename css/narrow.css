@@ -6,4 +6,23 @@
 
 .email{
     margin-right: 45px;
+    flex-direction: row;
+}
+
+.selected {
+    background-color: #00d1b2;
+}
+
+
+.selected .delete-btn:hover {
+    color: #fff;
+    cursor: pointer;   
+}
+
+.close-detail-btn {
+    display: none;
+}
+
+.left-side {
+    width: 40%;
 }

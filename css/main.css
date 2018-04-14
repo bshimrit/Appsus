@@ -36,12 +36,6 @@ header{
     text-decoration: underline;
  }
 
- .selected .delete-btn:hover {
-     color: #fff;
-     cursor: pointer;
-     
- }
-
  .delete-btn:hover {
      color: #00d1b2;
      cursor: pointer;
@@ -53,9 +47,17 @@ header{
  }
 
  .email{
+     flex-direction: column;
      margin-right: 0;
  }
 
+ .place-app {
+     position: relative;
+ }
+
+ .close-detail-btn {
+    display: block;
+}
 
 .email-container{
     height: 60vh;
@@ -67,10 +69,6 @@ header{
 
 .unread{
     font-family: 'MontBold', sans-serif;
-}
-
-.selected {
-    background-color: #00d1b2;
 }
 
 .textarea {
@@ -87,21 +85,28 @@ header{
 }
 .place-search{
     position: absolute;
-    top: 50px;
-    right: 50px;
+    top: 0;
+    right: 10px;
 }
+
+.place-item {
+    border-top: 3px solid #dadbdb;
+}
+
 
 .place-marked {
     position: absolute;
-    top: 50px;
-    background-color: #808080b5;
+    top: 0;
+    background-color: #ffffff;
+    color: black;
+    border: 3px solid #dadbdb
 }
 
 .compose-btn{
-    position: absolute;
+    position: fixed;
     bottom: 20px;
-    right: 0px;
-    left: auto;
+    right: 20px;
+    /* left: auto; */
 }
 
 .left-side{
@@ -109,7 +114,7 @@ header{
     margin-bottom: 10px;
 }
 
-.right-side {
+.display-none {
     display: none;
 }
 

@@ -1,9 +1,9 @@
 // import utilService from './util.service.js'
 
-import storageService from './storage.service.js'
-import utilService from './util.service.js'
-import LoremIpsum from './loremIpsum.js'
-import eventBus, { USR_MSG_DISPLAY, EMAIL_READ } from './event-bus.service.js'
+import storageService from '../general/storage.service.js'
+import utilService from '../general/util.service.js'
+import LoremIpsum from '../general/loremIpsum.js'
+import eventBus, { USR_MSG_DISPLAY, EMAIL_READ } from '../general/event-bus.service.js'
 
 
 const EMAILS_KEY = 'emailAppKey';
@@ -31,7 +31,7 @@ function query(filter = null) {
 
 function generateEmails() {
     var emails = []
-    for (let index = 0; index < 8; index++) {
+    for (let index = 0; index < 10; index++) {
         var email = createEmail()
         emails.push(email)
     }

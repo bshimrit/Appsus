@@ -22,7 +22,7 @@ let getLocByAddress = (address) => {
                 let addressName = addressData.formatted_address; // Full address.
 
                 let addressCoords = addressData.geometry.location; // Objects that olds the lat and lng.
-                resolve(addressCoords);
+                resolve(addressData);
             })
         });
     });

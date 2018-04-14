@@ -6,10 +6,10 @@ import placeMarked from '../../cmps/place/place-marked.js'
 
 export default {
     template:`
-    <section class="placeApp">
+    <section class="container place-app">
         <place-map  v-if="places.length" :places="places"></place-map>
         <place-search @searchLocation="searchLocation"></place-search>
-        <place-marked :places="places" @deletePlace="deletePlace"></place-marked>
+        <place-marked :places="places" @deletePlace="deletePlace" @locationClicked="goToLocation"></place-marked>
     </section>
     `,
     data(){
@@ -35,11 +35,14 @@ export default {
         deletePlace(place){
             placeService.deletePlace(place.id)
                 .then(res => {
-                    emailService.query()
+                    placeService.query()
                     .then(places => {
                         this.places= places;
                     })        
                 })
         },
+        goToLocation(place){
+            placeService.goToLocation(place);
+        }
     }
 }

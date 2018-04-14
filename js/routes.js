@@ -1,5 +1,5 @@
-import home from './pages/home.js'
-import about from './pages/about.js'
+import home from './pages/general/home.js'
+import about from './pages/general/about.js'
 import emailApp from './pages/email/email-app.js'
 import emailCompose from './cmps/email/email-compose.js'
 import emailDetails from './cmps/email/email-details.js'

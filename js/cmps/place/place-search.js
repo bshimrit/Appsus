@@ -1,6 +1,6 @@
 export default {
     template:`
-    <section class="placeSearch">
+    <section class="place-search">
         <form class="flex" @submit.prevent="searchAddress">
                 <label>
                     <input type="text" v-model="searchValue" placeholder="Search address" />
