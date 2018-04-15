@@ -3,6 +3,7 @@ import emailService from '../../services/email/email.service.js'
 import emailList from '../../cmps/email/email-list.js'
 import emailFilter from '../../cmps/email/email-filter.js'
 import progressBar from '../../cmps/general/progress-bar.js'
+import eventBus, {DELETE_EMAIL} from '../../services/general/event-bus.service.js'
 
 export default {
     template:`
@@ -10,7 +11,7 @@ export default {
         <div class="flex email">
             <div class="left-side">
                 <email-filter @filtered="setFilter"></email-filter>
-                <email-list @click.native="isDetail = !isDetail" v-if="mq.matches || !isDetail" :emails="emails" :selectedEmail="selectedEmail" @deleteEmail="deleteEmail" @selected="updateRead"></email-list>
+                <email-list @click.native="isDetail = !isDetail" v-if="mq.matches || !isDetail" :emails="emails" :selectedEmail="selectedEmail" @selected="updateRead"></email-list>
             </div>
             <div class="right-side">
                 <div v-if="mq.matches" class="ctrl-bar">
@@ -24,7 +25,7 @@ export default {
             <router-link @click.native="isCompose = !isCompose, isDetail = isCompose" v-if="!isCompose" class="compose-btn fa clear-btn base-btn" to="/email/compose"></router-link>
         </div>
     </section>`,
-data() {
+    data() {
     return {
         emails: [],
         filter: null,
@@ -33,15 +34,18 @@ data() {
         isDetail: false,
         mq: window.matchMedia( "(min-width: 740px)" )
     }
-},
+    },
     created() {
         emailService.query()
             .then(emails => {
                 this.emails = emails
                 this.selectedEmail = this.emails[0];
                 this.updateRead();
-            })
-        },
+        })
+        eventBus.$on(DELETE_EMAIL,email => {
+            this.deleteEmail(email.id);
+        })
+    },
     components:{
         emailList,
         emailFilter,
@@ -77,6 +81,7 @@ data() {
             })
         },
         updateRead(email){
+            this.isCompose = false;
             if (email) this.selectedEmail = email;
             if (this.selectedEmail){
                 emailService.setRead(this.selectedEmail.id)

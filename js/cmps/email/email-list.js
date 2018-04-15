@@ -7,7 +7,7 @@ export default {
     <section v-if="emails.length" class="email-list">
         <ul class="email-container scroll-y">
             <li v-for="email in emails" :class="checkSelected(email)" class="pointer">
-                    <email-preview :class="checkUnread(email)" @click.native="emitSelected(email)" :email="email" @deleteEmail="emitDelete(email)"></email-preview>
+                    <email-preview :class="checkUnread(email)" @click.native="emitSelected(email)" :email="email"></email-preview>
                 <hr class="hr">
             </li>
         </ul>
@@ -28,9 +28,6 @@ export default {
         detailEmailRoute(email){
             return "/email/details/" + email.id;
         },
-        emitDelete(email) {
-            this.$emit('deleteEmail', email.id);
-        },
         emitSelected(email){
             this.$emit('selected', email)            
         },
@@ -42,5 +39,4 @@ export default {
         }
     
     }
-
 }
