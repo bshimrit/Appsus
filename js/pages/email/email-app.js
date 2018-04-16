@@ -16,7 +16,7 @@ export default {
             <div class="right-side">
                 <div v-if="mq.matches" class="ctrl-bar">
                     <span class="font-bold">Read emails:</span>
-                    <progressBar></progressBar>
+                    <progressBar :progressValue="readEmails">{{readEmails}}%</progressBar>
                 </div>
                 <router-view v-if="mq.matches || isDetail" @closeDetails="isDetail = !isDetail" @sendEmail="sendEmail" @cancelEmail="cancelEmail" class="email-container"></router-view>
             </div>
@@ -50,6 +50,12 @@ export default {
         emailList,
         emailFilter,
         progressBar
+    },
+    computed: {
+        readEmails(){
+            var res = (emailService.countReadEmails(this.emails) / this.emails.length) * 100;
+            return Math.floor(res != res ? 0 : res);
+        }
     },
     methods: {
         detailEmailRoute(){

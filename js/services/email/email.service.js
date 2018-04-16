@@ -16,7 +16,7 @@ function query(filter = null) {
                 emails = generateEmails();
                 storageService.store(EMAILS_KEY, emails);
             }
-            eventBus.$emit(EMAIL_READ, {read:countReadEmails(emails),all:emails.length});
+            // eventBus.$emit(EMAIL_READ, {read:countReadEmails(emails),all:emails.length});
             if (filter === null) return emails;
             else return emails.filter(email => {
                             var isInText = (filter.text === '' || email.subject.includes(filter.text) ||
@@ -69,7 +69,7 @@ function deleteEmail(emailId) {
         .then(emails => {
             var emailIdx = emails.findIndex(email => email.id === emailId);
             emails.splice(emailIdx, 1);
-            eventBus.$emit(EMAIL_READ, {read:countReadEmails(emails),all:emails.length});
+            // eventBus.$emit(EMAIL_READ, {read:countReadEmails(emails),all:emails.length});
             return storageService.store(EMAILS_KEY, emails);
     })
 }
@@ -82,7 +82,7 @@ function setRead(emailId){
                 if (emailIdx != -1 && !emails[emailIdx].isRead){
                     emails[emailIdx].isRead = true;
                     storageService.store(EMAILS_KEY, emails);
-                    eventBus.$emit(EMAIL_READ, {read:countReadEmails(emails),all:emails.length});
+                    // eventBus.$emit(EMAIL_READ, {read:countReadEmails(emails),all:emails.length});
                 }
                 return storageService.store(EMAILS_KEY, emails);
         }) 
@@ -93,7 +93,7 @@ function sendEmail(email) {
     return storageService.load(EMAILS_KEY)
         .then(emails => {
             emails.unshift(createEmail(email))
-            eventBus.$emit(EMAIL_READ, {read:countReadEmails(emails),all:emails.length});
+            // eventBus.$emit(EMAIL_READ, {read:countReadEmails(emails),all:emails.length});
             return storageService.store(EMAILS_KEY, emails)
     })
 }

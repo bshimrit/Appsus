@@ -139,6 +139,48 @@ header{
     border-top: 3px solid #dadbdb;
 }
 
+.note{
+    border-radius: 3px;
+    background-color: white;
+    margin: 10px;
+    padding: 10px;
+    width: 250px;
+    box-shadow: 1px 1px #00d1b2;
+}
+
+.notes{
+    background-color: #e8e9e8;
+    margin-top: 20px;
+    max-height: calc(800px - 40vw);;
+}
+
+.clear-input input{
+    border-color: transparent;
+}
+
+.clear-input input:focus{
+    outline: none;
+}
+
+.clear-input input:disabled {
+    background-color: transparent;
+}
+
+.progress-bar {
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.progress-bar .progress {
+    height: 25px;
+    margin-bottom: 0;
+}
+.progress-value{
+    position: absolute;
+    font-family: 'MontBold', sans-serif;
+}
 
 .place-list {
     position: absolute;

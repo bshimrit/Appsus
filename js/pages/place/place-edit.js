@@ -12,10 +12,8 @@ export default {
     template:`
     <section class="container place-edit">
         <modal @close="closeModal">
-            <template slot="header">
+            <template>
                 <h1 class="title is-3"> Edit place details </h1>
-            </template>
-            <template slot="body">
                 <form class="flex flex-column justify-start" @submit.prevent="savePlace">
                     <label>
                         Name: <input class="input is-primary" type="text" v-model="place.name"></input>

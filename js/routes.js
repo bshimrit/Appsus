@@ -5,7 +5,7 @@ import emailCompose from './pages/email/email-compose.js'
 import emailDetails from './pages/email/email-details.js'
 import placeApp from './pages/place/place-app.js'
 import placeEdit from './pages/place/place-edit.js'
-import keeper from './pages/keeper.js'
+import keeperApp from './pages/keeper/keeper-app.js'
 
 
 const routes = [
@@ -22,7 +22,7 @@ const routes = [
         {path: 'edit/:id', components: {default: placeEdit},props: {default: true}},
       ]
     },
-    {path: '/keeper', component: keeper},
+    {path: '/keeper', component: keeperApp},
   ];
 
 Vue.use(VueRouter);
