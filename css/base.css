@@ -31,3 +31,8 @@ a:visited {
     margin: 2px;
     height: 3px;
 }
+
+textarea, input {
+    font-family: 'MontRegular', sans-serif;
+    
+}

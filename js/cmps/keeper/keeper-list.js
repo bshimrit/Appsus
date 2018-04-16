@@ -1,12 +1,12 @@
 export default {
-    props: {keep: {default:[]}, editMode: {default: false}},
+    props: {keep: {default:[]}, editMode: {default: true}},
     template:`<section @click="emitSelected" class="flex flex-column justify-end align-start">
         <input type="text" class="font-bold" placeholder="Title" v-model="curKeep.title" :disabled="editMode"></input>
         <ul>
             <li v-for="i in curKeep.notes.length" >
                 <label for='note' class="checkbox"></label>
                 <input id='note' type="checkbox" :disabled="editMode"></input>
-                <input type="text" v-model="curKeep.notes[i - 1]" :disabled="editMode" />
+                <span contentEditable="editMode">{{curKeep.notes[i - 1]}}</span>
             </li>
         </ul>
         </section>

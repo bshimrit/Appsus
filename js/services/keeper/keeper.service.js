@@ -58,7 +58,7 @@ function generateKeeps() {
 
 function createKeep(idx){
     var types = ['noteType','listType','reminderType'];
-    var notes = [['go to the supermarket'],['apointment with Dr'],['tomato','milk','butter','bread','butter']];
+    var notes = [['go to the library and get the book for my wife'],['apointment with Dr'],['tomato','milk','butter','bread','butter']];
     var loremIpsum = new LoremIpsum();
     var keep = {
         id: utilService.getRandomString(11),
@@ -69,9 +69,22 @@ function createKeep(idx){
     }
     return keep;
 }
+
+function createNewKeep(type){
+    var keep = {
+        id: utilService.getRandomString(11),
+        type: type,
+        title:'Title',
+        notes:[''],
+        imgs:[]
+    }
+
+    return keep;
+}
 export default {
     query,
     getKeepById,
     deleteKeep,
-    saveKeep
+    saveKeep,
+    createNewKeep
 }

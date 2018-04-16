@@ -21,6 +21,7 @@
 .base-color {
     color: #00d1b2;
 }
+
 .clear-btn {
     border: none;
     background: transparent;
@@ -35,6 +36,10 @@
     padding: 15px;
     outline-style: none;
     background-color: #68d3b3;
+}
+
+.base-btn:hover {
+    color: #ffffff
 }
 
 

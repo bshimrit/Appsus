@@ -166,6 +166,28 @@ header{
     background-color: transparent;
 }
 
+.keeper-menu li {
+    margin-bottom: 20px;
+}
+
+.current-note {
+    outline: none;
+}
+.clear-input textarea{
+    border-color: transparent;
+    resize: none;
+    overflow: auto;
+    /* max-height: auto; */
+}
+
+.clear-input textarea:focus{
+    outline: none;
+}
+
+.clear-input textarea:disabled {
+    background-color: transparent;
+}
+
 .progress-bar {
     display:flex;
     flex-direction: column;
